@@ -1,0 +1,9 @@
+.notificator {
+  position: fixed;
+  right: 5px;
+  bottom: 5px;
+  display: flex;
+  flex-direction: column-reverse;
+  max-width: 600px;
+  gap: 5px;
+}

@@ -4,6 +4,7 @@ const initialState = {
 }
 
 const ADD_PRODUCT = "ADD_PRODUCT";
+const CLEAR = "CLEAR";
 
 const cartReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -23,5 +24,11 @@ export const addProduct = (product) => (dispatch, getState) => {
   dispatch({
     type: ADD_PRODUCT,
     payload: product
+  })
+}
+
+export const clear = () => (dispatch, getState) => {
+  dispatch({
+    type: CLEAR,
   })
 }

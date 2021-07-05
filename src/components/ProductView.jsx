@@ -2,8 +2,9 @@ import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { addProduct } from "../store/cartDuck";
 import "./styles/ProductView.css";
-import MessagePopup from "./MessagePopup";
 import { addNotification } from "../store/notificationDuck";
+import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
 
 export default function ProductView(props) {
   const dispatch = useDispatch();
@@ -11,6 +12,12 @@ export default function ProductView(props) {
 
   const amountRef = useRef();
   const handleClick = (event) => {
+    dispatch(
+      addNotification({
+        title: "Agregado!",
+        message: "Se agrego el producto al carrito 🛒",
+      })
+    );
     dispatch(addProduct(product.addToCart(amountRef.current.value)));
   };
 
@@ -22,7 +29,9 @@ export default function ProductView(props) {
       </figure>
       <p>Precio: ${product.price}</p>
       <footer className="product-view__footer">
-        <button onClick={handleClick}>Agregar al carrito</button>
+        <Button variant="contained" color="primary" onClick={handleClick}>
+          Agregar
+        </Button>
         <input
           ref={amountRef}
           type="number"
@@ -30,20 +39,22 @@ export default function ProductView(props) {
           id=""
           min="1"
           max="10"
+          defaultValue="1"
         />
-        <button
-          className="product-view__btn--large"
-          onClick={() =>
-            dispatch(
-              addNotification({
-                title: "Este es un titulo más largo",
-                message: "Este es un titulo aún más largo",
-              })
-            )
-          }
+        <Link
+          className="product-view__btn--large "
+          to="/checkout"
+          style={{ textDecoration: "none" }}
         >
-          Comprar ahora
-        </button>
+          <Button
+            variant="contained"
+            color="primary"
+            className=""
+            onClick={() => dispatch(addProduct(product))}
+          >
+            Comprar ahora
+          </Button>
+        </Link>
       </footer>
     </li>
   );

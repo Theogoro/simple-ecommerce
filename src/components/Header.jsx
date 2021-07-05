@@ -1,9 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import BasketIcon from "bootstrap-icons/icons/basket.svg";
-import PersonIcon from "bootstrap-icons/icons/person-circle.svg";
 import LogoIcon from "../para el bajon - logo.svg";
+import { Button } from "@material-ui/core";
+
 import "./styles/Header.css";
+
+import { Link } from "react-router-dom";
 
 export default function Header(props) {
   const onCart = useSelector(
@@ -13,23 +16,25 @@ export default function Header(props) {
 
   return (
     <header className="header__container">
-      <img
-        className="header__logo"
-        src={LogoIcon}
-        alt="Logo delivery para el bajon"
-      />
-      <h1>Para bajonear</h1>
+      <Link to="/" className="header__branch">
+        <img
+          className="header__logo"
+          src={LogoIcon}
+          alt="Logo delivery para el bajon"
+        />
+        <h1>Para bajonear</h1>
+      </Link>
 
-      {/* TODO: Agregar OAuth */}
       <nav className="header__nav">
-        <img src={PersonIcon} alt="User icon" />
         <div
           className={
             "header__cart-btn " +
             (onCart.length !== 0 ? "header__cart-btn--with-products" : "")
           }
         >
-          <img src={BasketIcon} alt="Cart Icon" />
+          <Link to="/checkout">
+            <img src={BasketIcon} alt="Cart Icon" />
+          </Link>
           <ul className="header__cart-items">
             {onCart.length !== 0 ? (
               <>
@@ -41,10 +46,17 @@ export default function Header(props) {
                     <p>
                       {e.amount} x ${e.price} = ${e.subtotal}
                     </p>
-                    {/* TODO: Mover a otro elemento, estilos y logica (Remover) */}
                   </li>
                 ))}
-                {/* TODO: Agregar boton de comprar */}
+                <Link to="/checkout" style={{ textDecoration: "none" }}>
+                  <Button
+                    style={{ width: "100%" }}
+                    variant="contained"
+                    color="primary"
+                  >
+                    Comprar ahora
+                  </Button>
+                </Link>
               </>
             ) : (
               <p>Aún no hay productos 😢</p>

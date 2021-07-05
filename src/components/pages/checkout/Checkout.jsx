@@ -1,16 +1,16 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import { clear } from "../../store/cartDuck";
-import { addNotification } from "../../store/notificationDuck";
+import { clear } from "../../../store/cartDuck";
+import { addNotification } from "../../../store/notificationDuck";
 import { TextField, InputLabel, Button } from "@material-ui/core";
-import "../styles/Checkout.css";
+import "../../styles/Checkout.css";
 
 export default function Checkout(props) {
   const dispatch = useDispatch();
   const products = useSelector((store) => store.cart.products);
 
-  const handleClick = () => {
+  const handleClick = (event) => {
     dispatch(clear());
     dispatch(
       addNotification({
@@ -18,6 +18,10 @@ export default function Checkout(props) {
         message: "Su compra se realizó con exito 😁",
       })
     );
+
+    setTimeout(() => {
+      document.location.href = "/";
+    }, 2000);
   };
 
   return (
@@ -42,7 +46,7 @@ export default function Checkout(props) {
                   </div>
                   <div className="vertical-center">
                     <p className="checkout__element-subtotal">
-                      ${product.subtotal}
+                      ${product.subtotal || product.price * 1}
                     </p>
                   </div>
                 </li>
@@ -58,7 +62,7 @@ export default function Checkout(props) {
               <TextField id="input-direccion" />
               <InputLabel htmlFor="">Telefono</InputLabel>
               <TextField id="input-direccion" />
-              <Link to="/" style={{ textDecoration: "none" }}>
+              <Link style={{ textDecoration: "none" }}>
                 <Button
                   style={{ width: "100%" }}
                   variant="contained"

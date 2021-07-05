@@ -4,8 +4,7 @@ import Header from "./Header";
 import Notificator from "./Notificator";
 import Hero from "./pages/index/Hero";
 import "./styles/App.css";
-import Login from "./pages/login/Login";
-import Checkout from "./checkout/Checkout";
+import Checkout from "./pages/checkout/Checkout";
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
@@ -18,9 +17,6 @@ function App() {
           <Route path="/" exact>
             <Hero />
             <ProductsContainer />
-          </Route>
-          <Route path="/login">
-            <Login />
           </Route>
           <Route path="/checkout">
             <Checkout />
